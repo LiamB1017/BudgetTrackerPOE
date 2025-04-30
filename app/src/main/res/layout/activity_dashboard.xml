@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dashboard"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,10 +8,10 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="134dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Dashboard"
-        android:textSize="46sp" />
+        android:textSize="36sp" />
 
     <TextView
         android:id="@+id/textView9"
@@ -21,19 +21,13 @@
         android:text="Minimum Monthly Goal"
         android:textSize="36sp" />
 
-
     <EditText
         android:id="@+id/editTextNumber3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:hint="Enter your amount"
         android:inputType="number"
         android:minHeight="48dp" />
-
-
-    <!-- Green progress -->
-
 
     <TextView
         android:id="@+id/textView10"
@@ -47,24 +41,32 @@
         android:id="@+id/editTextNumber4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:hint="Enter your amount"
         android:inputType="number"
         android:minHeight="48dp" />
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="425dp"
-        android:layout_height="276dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:indeterminateTint="#4CAF50" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_update_goals"
         android:layout_width="match_parent"
-        android:layout_height="94dp"
+        android:layout_height="wrap_content"
         android:backgroundTint="#4CAF50"
         android:text="Update Goals"
         android:textColor="@android:color/white"
-        android:textSize="34sp" />
+        android:textSize="24sp" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:itemIconTint="@android:color/black"
+        app:itemTextColor="@android:color/black"
+        app:menu="@menu/bottom_nav_menu" />
 </LinearLayout>

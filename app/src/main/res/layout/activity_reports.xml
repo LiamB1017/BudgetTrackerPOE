@@ -1,42 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- activity_reports.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
     <!-- Date Picker Button -->
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Reports"
-        android:textSize="46sp" />
+<TextView
+android:id="@+id/textView3"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:gravity="center"
+android:text="Reports"
+android:textSize="46sp" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="94dp"
-        android:backgroundTint="#4CAF50"
-        android:text="Select Date Range"
-        android:textColor="@android:color/white"
-        android:textSize="34sp" />
+<Button
+android:id="@+id/btnAddCat"
+android:layout_width="match_parent"
+android:layout_height="94dp"
+android:backgroundTint="#4CAF50"
+android:text="Select Date Range"
+android:textColor="@android:color/white"
+android:textSize="34sp" />
 
     <!-- Placeholder for chart -->
-    <ImageView
-        android:id="@+id/imageViewChart"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        android:background="#E0E0E0"
-        android:contentDescription="Chart Placeholder" />
+<ImageView
+android:id="@+id/imageViewChart"
+android:layout_width="match_parent"
+android:layout_height="200dp"
+android:layout_marginTop="16dp"
+android:background="#E0E0E0"
+android:contentDescription="Chart Placeholder" />
 
     <!-- ListView for category summary -->
-    <ListView
-        android:id="@+id/listViewCategorySummary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
-</LinearLayout>
+<ListView
+android:id="@+id/listViewCategorySummary"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_marginTop="16dp" />
+
+    <!-- Bottom Navigation View -->
+<com.google.android.material.bottomnavigation.BottomNavigationView
+android:id="@+id/bottomNavigationView"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:background="@android:color/white"
+app:itemIconTint="@android:color/black"
+app:itemTextColor="@android:color/black"
+app:menu="@menu/bottom_nav_menu" /> <!-- Reference your menu here -->
+    </LinearLayout>

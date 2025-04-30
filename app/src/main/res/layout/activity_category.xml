@@ -1,38 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/category"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
+    <!-- Header text -->
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
-        android:layout_height="134dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Category"
-        android:textSize="46sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="36sp"
+        android:layout_marginBottom="20dp" />
 
+    <!-- ListView for displaying categories -->
+    <ListView
+        android:id="@+id/ctgList"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- EditText for entering category name -->
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/ctgName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:minHeight="48dp"
+        android:hint="Enter category name"
         android:inputType="text"
-        android:text="Name" />
+        android:layout_marginBottom="16dp" />
 
+    <!-- Button to add a category -->
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnAddCat"
         android:layout_width="match_parent"
-        android:layout_height="94dp"
-        android:backgroundTint="#4CAF50"
+        android:layout_height="wrap_content"
         android:text="Add Category"
+        android:backgroundTint="#4CAF50"
         android:textColor="@android:color/white"
-        android:textSize="34sp" />
+        android:textSize="20sp"
+        android:layout_marginBottom="20dp" />
 
-    <ListView
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="452dp" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white"
+        app:itemIconTint="@android:color/black"
+        app:itemTextColor="@android:color/black"
+        app:menu="@menu/bottom_nav_menu" />
 
 </LinearLayout>

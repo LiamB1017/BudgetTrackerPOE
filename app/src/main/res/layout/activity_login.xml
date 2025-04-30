@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Login"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textSize="46sp" />
 
     <EditText
@@ -50,10 +51,19 @@
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="94dp"
+        android:backgroundTint="#2196F3"
         android:text="Log In"
-        android:textSize="34sp"
         android:textColor="@android:color/white"
-        android:backgroundTint="#2196F3" />
+        android:textSize="34sp" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="94dp"
+        android:backgroundTint="#023B68"
+        android:text="Register"
+        android:textColor="@android:color/white"
+        android:textSize="34sp" />
 
 
 </LinearLayout>
