@@ -41,22 +41,6 @@ class AddExpense : AppCompatActivity() {
         btnAttach = findViewById(R.id.btnAttach)
         btnAddExpense = findViewById(R.id.btnAddExpense)
 
-        // Spinner setup
-        val adapter = ArrayAdapter.createFromResource(
-            this,
-            R.array.expense_categories,
-            android.R.layout.simple_spinner_item
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerCategory.adapter = adapter
-
-        etDate.setOnClickListener { pickDate() }
-        etStartTime.setOnClickListener { pickTime(etStartTime) }
-        etEndTime.setOnClickListener { pickTime(etEndTime) }
-
-        btnAttach.setOnClickListener { pickImage() }
-        btnAddExpense.setOnClickListener { saveExpense() }
-
         // Bottom Navigation Setup
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.setOnItemSelectedListener { item ->
@@ -82,6 +66,25 @@ class AddExpense : AppCompatActivity() {
             }
         }
         bottomNavigationView.selectedItemId = R.id.nav_add_expense
+
+        // Load categories into spinner in a background thread
+        loadCategories()
+    }
+
+    private fun loadCategories() {
+        // Start a background thread to load categories
+        Thread {
+            val categoryDao = CategoryDatabase.getDatabase(applicationContext).categoryDao()
+            val categories = categoryDao.getAll() // Synchronously get the categories
+            val categoryNames = categories.map { it.name } // Get the names of categories
+
+            // Update the UI with the category names
+            runOnUiThread {
+                val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinnerCategory.adapter = adapter
+            }
+        }.start()
     }
 
     private fun pickDate() {
@@ -138,6 +141,7 @@ class AddExpense : AppCompatActivity() {
             return
         }
 
+        // Save your expense here
         Toast.makeText(this, "Expense Added!", Toast.LENGTH_SHORT).show()
     }
 }
