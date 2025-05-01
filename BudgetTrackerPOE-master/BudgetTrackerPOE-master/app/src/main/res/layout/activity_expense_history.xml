@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/expense_history"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="134dp"
+        android:gravity="center"
+        android:text="Expense History"
+        android:textSize="46sp" />
+
+    <Button
+        android:id="@+id/buttonStartDate"
+        android:layout_width="match_parent"
+        android:layout_height="94dp"
+        android:backgroundTint="#4CAF50"
+        android:text="Select Start Date"
+        android:textColor="@android:color/white"
+        android:textSize="34sp" />
+
+    <Button
+        android:id="@+id/buttonEndDate"
+        android:layout_width="match_parent"
+        android:layout_height="94dp"
+        android:backgroundTint="#4CAF50"
+        android:text="Select End Date"
+        android:textColor="@android:color/white"
+        android:textSize="34sp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="415dp" />
+
+</LinearLayout>

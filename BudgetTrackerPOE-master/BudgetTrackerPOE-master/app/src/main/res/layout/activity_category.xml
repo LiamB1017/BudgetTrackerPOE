@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/category"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="134dp"
+        android:gravity="center"
+        android:text="Category"
+        android:textSize="46sp" />
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:minHeight="48dp"
+        android:inputType="text"
+        android:text="Name" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="94dp"
+        android:backgroundTint="#4CAF50"
+        android:text="Add Category"
+        android:textColor="@android:color/white"
+        android:textSize="34sp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="452dp" />
+
+</LinearLayout>

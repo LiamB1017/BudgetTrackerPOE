@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dashboard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="134dp"
+        android:gravity="center"
+        android:text="Dashboard"
+        android:textSize="46sp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Minimum Monthly Goal"
+        android:textSize="36sp" />
+
+
+    <EditText
+        android:id="@+id/editTextNumber3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter your amount"
+        android:inputType="number"
+        android:minHeight="48dp" />
+
+
+    <!-- Green progress -->
+
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Maximum Goal"
+        android:textSize="36sp" />
+
+    <EditText
+        android:id="@+id/editTextNumber4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter your amount"
+        android:inputType="number"
+        android:minHeight="48dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="425dp"
+        android:layout_height="276dp"
+        android:indeterminateTint="#4CAF50" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="94dp"
+        android:backgroundTint="#4CAF50"
+        android:text="Update Goals"
+        android:textColor="@android:color/white"
+        android:textSize="34sp" />
+
+</LinearLayout>
