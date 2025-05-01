@@ -21,7 +21,7 @@ class DashboardActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_add_expense -> {
-                    val intent = Intent(this, AddExpenseActivity::class.java)
+                    val intent = Intent(this, AddExpense::class.java)
                     startActivity(intent)
                     true
                 }

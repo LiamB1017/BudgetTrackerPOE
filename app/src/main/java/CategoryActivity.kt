@@ -45,7 +45,7 @@ class CategoryActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_add_expense -> {
-                    startActivity(Intent(this, AddExpenseActivity::class.java))
+                    startActivity(Intent(this, AddExpense::class.java))
                     true
                 }
                 R.id.nav_category -> true

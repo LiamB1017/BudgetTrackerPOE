@@ -28,7 +28,7 @@
         <activity android:name=".DashboardActivity" />
 
         <!-- Additional screens for navigation -->
-        <activity android:name=".AddExpenseActivity" />
+        <activity android:name=".AddExpense" />
         <activity android:name=".CategoryActivity" />
         <activity android:name=".ExpenseHistoryActivity" />
         <activity android:name=".ReportsActivity" />
