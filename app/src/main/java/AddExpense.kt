@@ -1,6 +1,5 @@
 package com.example.budgettrackerpoe
 
-
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
@@ -9,7 +8,11 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AddExpense : AppCompatActivity() {
@@ -41,7 +44,12 @@ class AddExpense : AppCompatActivity() {
         btnAttach = findViewById(R.id.btnAttach)
         btnAddExpense = findViewById(R.id.btnAddExpense)
 
-        // Bottom Navigation Setup
+        btnAttach.setOnClickListener { pickImage() }
+        etDate.setOnClickListener { pickDate() }
+        etStartTime.setOnClickListener { pickTime(etStartTime) }
+        etEndTime.setOnClickListener { pickTime(etEndTime) }
+        btnAddExpense.setOnClickListener { saveExpense() }
+
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -67,18 +75,15 @@ class AddExpense : AppCompatActivity() {
         }
         bottomNavigationView.selectedItemId = R.id.nav_add_expense
 
-        // Load categories into spinner in a background thread
         loadCategories()
     }
 
     private fun loadCategories() {
-        // Start a background thread to load categories
         Thread {
             val categoryDao = CategoryDatabase.getDatabase(applicationContext).categoryDao()
-            val categories = categoryDao.getAll() // Synchronously get the categories
-            val categoryNames = categories.map { it.name } // Get the names of categories
+            val categories = categoryDao.getAll()
+            val categoryNames = categories.map { it.name }
 
-            // Update the UI with the category names
             runOnUiThread {
                 val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -141,7 +146,7 @@ class AddExpense : AppCompatActivity() {
             return
         }
 
-        // Save your expense here
+        // You can now save this to your RoomDB if needed.
         Toast.makeText(this, "Expense Added!", Toast.LENGTH_SHORT).show()
     }
 }

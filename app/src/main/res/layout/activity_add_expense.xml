@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -18,15 +17,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- Title -->
             <TextView
-                android:text="Add Expense"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp"
-                android:layout_width="wrap_content"
+                android:layout_width="362dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/DeepblueTextColor" />
+                android:layout_marginBottom="16dp"
+                android:text="Add Expense"
+                android:textColor="@color/DeepblueTextColor"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
+            <!-- Expense Form -->
             <LinearLayout
                 android:orientation="vertical"
                 android:background="#2B2FA6"
@@ -106,6 +107,7 @@
                     android:textColor="@color/greenTextColor" />
             </LinearLayout>
 
+            <!-- Add Expense Button -->
             <Button
                 android:id="@+id/btnAddExpense"
                 android:text="Upload Expense"
