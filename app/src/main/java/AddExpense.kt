@@ -79,15 +79,25 @@ class AddExpense : AppCompatActivity() {
     }
 
     private fun loadCategories() {
+        // Run database query on a background thread
         Thread {
             val categoryDao = CategoryDatabase.getDatabase(applicationContext).categoryDao()
-            val categories = categoryDao.getAll()
+            val categories = categoryDao.getAll() // Fetch categories from RoomDB
             val categoryNames = categories.map { it.name }
 
+            // Run on the main thread to update UI
             runOnUiThread {
-                val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinnerCategory.adapter = adapter
+                if (categoryNames.isNotEmpty()) {
+                    // Set the spinner adapter with the category names
+                    val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spinnerCategory.adapter = adapter
+                } else {
+                    // In case no categories are found, display a default message
+                    val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, listOf("No categories available"))
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spinnerCategory.adapter = adapter
+                }
             }
         }.start()
     }
@@ -97,7 +107,9 @@ class AddExpense : AppCompatActivity() {
         val dpd = DatePickerDialog(
             this,
             { _, year, month, day ->
-                etDate.setText("$day/${month + 1}/$year")
+                // Format the date as yyyy-MM-dd before setting it in the EditText
+                val formattedDate = String.format("%04d-%02d-%02d", year, month + 1, day)
+                etDate.setText(formattedDate)
             },
             c.get(Calendar.YEAR),
             c.get(Calendar.MONTH),
@@ -105,6 +117,7 @@ class AddExpense : AppCompatActivity() {
         )
         dpd.show()
     }
+
 
     private fun pickTime(target: EditText) {
         val c = Calendar.getInstance()
@@ -134,19 +147,45 @@ class AddExpense : AppCompatActivity() {
     }
 
     private fun saveExpense() {
-        val amount = etAmount.text.toString()
+        val amountText = etAmount.text.toString()
         val date = etDate.text.toString()
         val startTime = etStartTime.text.toString()
         val endTime = etEndTime.text.toString()
-        val desc = etDescription.text.toString()
+        val description = etDescription.text.toString()
         val category = spinnerCategory.selectedItem.toString()
 
-        if (amount.isEmpty() || date.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
+        if (amountText.isEmpty() || date.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
             Toast.makeText(this, "Please complete all fields", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // You can now save this to your RoomDB if needed.
-        Toast.makeText(this, "Expense Added!", Toast.LENGTH_SHORT).show()
+        // Convert amount to a double
+        val amount = amountText.toDoubleOrNull() ?: 0.0
+
+        // Get URI of receipt
+        val uriString = receiptUri?.toString()
+
+        // Create an Expense object and save it to the database (RoomDB)
+        val expense = Expense(
+            amount = amount,
+            date = date,
+            startTime = startTime,
+            endTime = endTime,
+            description = description,
+            category = category,
+            receiptUri = uriString
+        )
+
+        val db = CategoryDatabase.getDatabase(this)
+        val expenseDao = db.expenseDao()
+
+        // Insert the expense in a background thread
+        Thread {
+            expenseDao.insert(expense)
+            runOnUiThread {
+                Toast.makeText(this, "Expense Added!", Toast.LENGTH_SHORT).show()
+                finish()  // Close the activity
+            }
+        }.start()
     }
 }

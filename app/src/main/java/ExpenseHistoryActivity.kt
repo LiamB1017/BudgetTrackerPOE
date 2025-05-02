@@ -1,46 +1,137 @@
 package com.example.budgettrackerpoe
 
-import android.content.Intent
+import android.app.DatePickerDialog
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.text.SimpleDateFormat
+import java.util.*
+import android.content.Intent
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ExpenseHistoryActivity : AppCompatActivity() {
 
+    private lateinit var expenseDao: ExpenseDao
+    private lateinit var categoryDao: CategoryDao
+    private lateinit var buttonFetchData: Button
+    private lateinit var buttonStartDate: Button
+    private lateinit var buttonEndDate: Button
+    private lateinit var textViewData: TextView
+
+    private var startDate: String = ""
+    private var endDate: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_expense_history) // Set the layout for this activity
+        setContentView(R.layout.activity_expense_history)
+
+        val database = CategoryDatabase.getDatabase(this)
+        expenseDao = database.expenseDao()
+        categoryDao = database.categoryDao()
+
+        buttonFetchData = findViewById(R.id.buttonFetchData)
+        buttonStartDate = findViewById(R.id.buttonStartDate)
+        buttonEndDate = findViewById(R.id.buttonEndDate)
+        textViewData = findViewById(R.id.textViewData)
+
+        buttonStartDate.setOnClickListener {
+            showDatePicker { date ->
+                startDate = date
+                buttonStartDate.text = "Start Date: $date"
+            }
+        }
+
+        buttonEndDate.setOnClickListener {
+            showDatePicker { date ->
+                endDate = date
+                buttonEndDate.text = "End Date: $date"
+            }
+        }
+
+        buttonFetchData.setOnClickListener {
+            if (startDate.isNotEmpty() && endDate.isNotEmpty()) {
+                fetchExpenseData(startDate, endDate)
+            } else {
+                textViewData.text = "Please select both start and end dates."
+            }
+        }
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-
-        // Set listener for BottomNavigationView
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
-                    val intent = Intent(this, DashboardActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, MainActivity::class.java))
                     true
                 }
-                R.id.nav_add_expense -> {
-                    val intent = Intent(this, AddExpense::class.java)
-                    startActivity(intent)
-                    true
-                }
+                R.id.nav_add_expense -> true
                 R.id.nav_category -> {
-                    val intent = Intent(this, CategoryActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, CategoryActivity::class.java))
                     true
                 }
                 R.id.nav_expense_history -> {
-                    // Stay on the current Expense History page
+                    startActivity(Intent(this, ExpenseHistoryActivity::class.java))
                     true
                 }
                 R.id.nav_reports -> {
-                    val intent = Intent(this, ReportsActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, ReportsActivity::class.java))
                     true
                 }
                 else -> false
+            }
+        }
+        bottomNavigationView.selectedItemId = R.id.nav_add_expense
+    }
+
+    private fun showDatePicker(onDateSelected: (String) -> Unit) {
+        val calendar = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, year, month, dayOfMonth ->
+                val selectedDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
+                onDateSelected(selectedDate)
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
+    }
+
+    private fun fetchExpenseData(startDate: String, endDate: String) {
+        // Launch the background task using Kotlin Coroutines for better thread management
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                // Fetch expenses using the DAO on a background thread
+                val expenses = withContext(Dispatchers.IO) {
+                    expenseDao.getExpensesByDateRange(startDate, endDate)
+                }
+                val stringBuilder = StringBuilder()
+                var totalAmount = 0.0
+
+                if (expenses.isEmpty()) {
+                    textViewData.text = "No expenses found for the given date range."
+                    return@launch
+                }
+
+                // Loop through each expense and build the output
+                for (expense in expenses) {
+                    stringBuilder.append("---------------\n\n")
+                    stringBuilder.append("Category: ${expense.category}\n")
+                    stringBuilder.append("Amount: ${expense.amount}\n")
+                    stringBuilder.append("Description: ${expense.description}\n\n")
+                    totalAmount += expense.amount
+                }
+
+                stringBuilder.append("\nTotal Amount Spent: $totalAmount")
+                textViewData.text = stringBuilder.toString()
+
+            } catch (e: Exception) {
+                textViewData.text = "Error fetching data: ${e.message}"
             }
         }
     }
