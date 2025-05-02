@@ -14,6 +14,8 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import android.content.pm.PackageManager
+
 
 class AddExpense : AppCompatActivity() {
 
@@ -28,7 +30,7 @@ class AddExpense : AppCompatActivity() {
     private lateinit var btnAddExpense: Button
 
     private var receiptUri: Uri? = null
-    private val PICK_IMAGE = 1
+    private val REQUEST_CAMERA = 1001 // Request code for the camera
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,10 +46,19 @@ class AddExpense : AppCompatActivity() {
         btnAttach = findViewById(R.id.btnAttach)
         btnAddExpense = findViewById(R.id.btnAddExpense)
 
-        btnAttach.setOnClickListener { pickImage() }
+        // Request camera permission at runtime
+        if (checkSelfPermission(android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(android.Manifest.permission.CAMERA), REQUEST_CAMERA)
+        } else {
+            btnAttach.setOnClickListener { captureImage() }
+        }
+
+        // Date and Time pickers
         etDate.setOnClickListener { pickDate() }
         etStartTime.setOnClickListener { pickTime(etStartTime) }
         etEndTime.setOnClickListener { pickTime(etEndTime) }
+
+        // Add expense button
         btnAddExpense.setOnClickListener { saveExpense() }
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
@@ -118,7 +129,6 @@ class AddExpense : AppCompatActivity() {
         dpd.show()
     }
 
-
     private fun pickTime(target: EditText) {
         val c = Calendar.getInstance()
         val tpd = TimePickerDialog(
@@ -133,16 +143,36 @@ class AddExpense : AppCompatActivity() {
         tpd.show()
     }
 
-    private fun pickImage() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, PICK_IMAGE)
+    private fun captureImage() {
+        try {
+            val photoFile = createImageFile()  // Create the file for the image
+            receiptUri = FileProvider.getUriForFile(
+                this,
+                "${applicationContext.packageName}.provider",
+                photoFile
+            )
+            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, receiptUri)
+            startActivityForResult(cameraIntent, REQUEST_CAMERA)
+        } catch (ex: IOException) {
+            Toast.makeText(this, "Error creating image file.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun createImageFile(): File {
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
+        val storageDir: File = getExternalFilesDir(null)!!
+        return File.createTempFile(
+            "IMG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
-            receiptUri = data.data
-            ivReceipt.setImageURI(receiptUri)
+        if (requestCode == REQUEST_CAMERA && resultCode == RESULT_OK) {
+            ivReceipt.setImageURI(receiptUri) // Set the captured image to ImageView
         }
     }
 
@@ -187,5 +217,18 @@ class AddExpense : AppCompatActivity() {
                 finish()  // Close the activity
             }
         }.start()
+    }
+
+    // Handle permissions request result
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == REQUEST_CAMERA) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                btnAttach.setOnClickListener { captureImage() }
+            } else {
+                Toast.makeText(this, "Camera permission is required to take photos.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
