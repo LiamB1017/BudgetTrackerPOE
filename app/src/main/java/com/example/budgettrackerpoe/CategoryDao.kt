@@ -10,5 +10,5 @@ interface CategoryDao {
     fun insert(category: Category)
 
     @Query("SELECT * FROM category_table")
-    fun getAll(): List<Category> // Fetches all categories
+    fun getAll(): List<Category>
 }

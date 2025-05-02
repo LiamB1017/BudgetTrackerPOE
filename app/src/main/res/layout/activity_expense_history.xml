@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ExpenseHistoryActivity">
 
-    <!-- Title -->
     <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
@@ -20,12 +19,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
-    <!-- Select Start Date Button -->
     <Button
         android:id="@+id/buttonStartDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#4CAF50"
+        android:backgroundTint="#023B68"
         android:text="Select Start Date"
         android:textColor="@android:color/white"
         android:textSize="18sp"
@@ -34,12 +32,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
-    <!-- Select End Date Button -->
     <Button
         android:id="@+id/buttonEndDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#4CAF50"
+        android:backgroundTint="#023B68"
         android:text="Select End Date"
         android:textColor="@android:color/white"
         android:textSize="18sp"
@@ -48,19 +45,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
-    <!-- Fetch Expense Data Button -->
     <Button
         android:id="@+id/buttonFetchData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fetch Expense Data"
         android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#2196F3"
         app:layout_constraintTop_toBottomOf="@id/buttonEndDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
-    <!-- TextView for displaying the fetched data -->
     <TextView
         android:id="@+id/textViewData"
         android:layout_width="0dp"
@@ -74,7 +71,6 @@
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"

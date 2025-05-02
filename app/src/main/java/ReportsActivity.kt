@@ -1,3 +1,10 @@
+//Group Members:
+//Eliezer Zlotnick	        ST10312794
+//Mmabalane Mothiba	        ST10393134
+//Liam Max Brown	        ST10262451
+//Kgomotso Mbulelo Nxumalo	ST10135860
+//Muhammed Riyaad Kajee	    ST10395948
+
 package com.example.budgettrackerpoe
 
 import android.app.DatePickerDialog
@@ -23,11 +30,11 @@ class ReportsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_reports) // Set the layout for this activity
+        setContentView(R.layout.activity_reports)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
-        // Set listener for BottomNavigationView
+        // Nav Bar
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
@@ -58,33 +65,31 @@ class ReportsActivity : AppCompatActivity() {
             }
         }
 
-        // Initialize views
+        // Views
         val btnPickStartDate = findViewById<View>(R.id.btnPickStartDate)
         val btnPickEndDate = findViewById<View>(R.id.btnPickEndDate)
         val btnSearch = findViewById<View>(R.id.btnSearch)
         expenseListView = findViewById(R.id.listViewCategorySummary)
 
-        // Set date picker for start date
+        // Set start date
         btnPickStartDate.setOnClickListener {
             showDatePickerDialog { selectedDate ->
                 startDate = selectedDate
             }
         }
 
-        // Set date picker for end date
+        // Set end date
         btnPickEndDate.setOnClickListener {
             showDatePickerDialog { selectedDate ->
                 endDate = selectedDate
             }
         }
 
-        // Set listener for search button
         btnSearch.setOnClickListener {
             fetchExpensesAndDisplay()
         }
     }
 
-    // Function to show date picker dialog
     private fun showDatePickerDialog(onDateSelected: (String) -> Unit) {
         val calendar = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
@@ -100,44 +105,39 @@ class ReportsActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
-    // Function to fetch expenses based on date range and display in ListView
+    // Fetch expenses based on date range
     private fun fetchExpensesAndDisplay() {
-        // Use a background thread to fetch expenses
         Thread {
-            // Get expenses from RoomDB based on the selected date range
+            // Get expenses from RoomDB
             val db = Room.databaseBuilder(applicationContext, CategoryDatabase::class.java, "category_db").build()
             val expenseDao = db.expenseDao()
-
-            // Fetch expenses from the database using the date range
             val expenses = expenseDao.getExpensesByDateRange(startDate, endDate)
 
-            // Run the UI update on the main thread after fetching the data
+            // Run UI update on the main thread
             runOnUiThread {
-                // Set up the ListView to display expenses
                 val expenseDescriptions = expenses.map { it.description }
                 val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, expenseDescriptions)
                 expenseListView.adapter = adapter
-
-                // Handle item click in ListView
                 expenseListView.setOnItemClickListener { _, _, position, _ ->
-                    // Get the selected expense and display its receipt image
+                    // Get selected expense and display its receipt
                     val selectedExpense = expenses[position]
                     displayReceiptImage(selectedExpense)
                 }
             }
-        }.start()  // Start the thread
+        }.start()
     }
 
 
-    // Function to display the receipt image when an expense is clicked
+    // Function to display the receipt image when expense is clicked
     private fun displayReceiptImage(expense: Expense) {
         val imageView = findViewById<ImageView>(R.id.imageViewChart)
 
         if (expense.receiptUri != null) {
             val uri = Uri.parse(expense.receiptUri)
-            imageView.setImageURI(uri)  // Display the image in the ImageView
+            // Display the image in the ImageView
+            imageView.setImageURI(uri)
         } else {
-            imageView.setImageDrawable(null)  // Clear the image view if no image is available
+            imageView.setImageDrawable(null)
         }
     }
 }

@@ -1,11 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#D3D3D3"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Scrollable content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -17,20 +16,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Title -->
+
             <TextView
                 android:layout_width="362dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="Add Expense"
+
                 android:textColor="@color/DeepblueTextColor"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <!-- Expense Form -->
             <LinearLayout
                 android:orientation="vertical"
-                android:background="#2B2FA6"
+                android:background="#2196F3"
                 android:padding="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,21 +103,21 @@
                     android:text="Attach Receipt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/greenTextColor" />
+                    android:backgroundTint="#023B68"
+                    android:textColor="@android:color/white"/>
             </LinearLayout>
 
-            <!-- Add Expense Button -->
             <Button
                 android:id="@+id/btnAddExpense"
                 android:text="Upload Expense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/DeepblueTextColor" />
+                android:backgroundTint="#2196F3"
+                android:textColor="@android:color/white"/>
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"

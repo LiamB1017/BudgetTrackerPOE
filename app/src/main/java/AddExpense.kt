@@ -1,3 +1,10 @@
+//Group Members:
+//Eliezer Zlotnick	        ST10312794
+//Mmabalane Mothiba	        ST10393134
+//Liam Max Brown	        ST10262451
+//Kgomotso Mbulelo Nxumalo	ST10135860
+//Muhammed Riyaad Kajee	    ST10395948
+
 package com.example.budgettrackerpoe
 
 import android.app.DatePickerDialog
@@ -30,7 +37,8 @@ class AddExpense : AppCompatActivity() {
     private lateinit var btnAddExpense: Button
 
     private var receiptUri: Uri? = null
-    private val REQUEST_CAMERA = 1001 // Request code for the camera
+    // Request for the camera
+    private val REQUEST_CAMERA = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +54,7 @@ class AddExpense : AppCompatActivity() {
         btnAttach = findViewById(R.id.btnAttach)
         btnAddExpense = findViewById(R.id.btnAddExpense)
 
-        // Request camera permission at runtime
+        // Request camera permission
         if (checkSelfPermission(android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(android.Manifest.permission.CAMERA), REQUEST_CAMERA)
         } else {
@@ -58,7 +66,6 @@ class AddExpense : AppCompatActivity() {
         etStartTime.setOnClickListener { pickTime(etStartTime) }
         etEndTime.setOnClickListener { pickTime(etEndTime) }
 
-        // Add expense button
         btnAddExpense.setOnClickListener { saveExpense() }
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
@@ -90,21 +97,19 @@ class AddExpense : AppCompatActivity() {
     }
 
     private fun loadCategories() {
-        // Run database query on a background thread
+        // Run database query on background thread
         Thread {
             val categoryDao = CategoryDatabase.getDatabase(applicationContext).categoryDao()
-            val categories = categoryDao.getAll() // Fetch categories from RoomDB
+            val categories = categoryDao.getAll()
             val categoryNames = categories.map { it.name }
 
             // Run on the main thread to update UI
             runOnUiThread {
                 if (categoryNames.isNotEmpty()) {
-                    // Set the spinner adapter with the category names
                     val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spinnerCategory.adapter = adapter
                 } else {
-                    // In case no categories are found, display a default message
                     val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, listOf("No categories available"))
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spinnerCategory.adapter = adapter
@@ -118,7 +123,6 @@ class AddExpense : AppCompatActivity() {
         val dpd = DatePickerDialog(
             this,
             { _, year, month, day ->
-                // Format the date as yyyy-MM-dd before setting it in the EditText
                 val formattedDate = String.format("%04d-%02d-%02d", year, month + 1, day)
                 etDate.setText(formattedDate)
             },
@@ -145,7 +149,8 @@ class AddExpense : AppCompatActivity() {
 
     private fun captureImage() {
         try {
-            val photoFile = createImageFile()  // Create the file for the image
+            // Create the file for the image
+            val photoFile = createImageFile()
             receiptUri = FileProvider.getUriForFile(
                 this,
                 "${applicationContext.packageName}.provider",
@@ -163,16 +168,16 @@ class AddExpense : AppCompatActivity() {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
         val storageDir: File = getExternalFilesDir(null)!!
         return File.createTempFile(
-            "IMG_${timeStamp}_", /* prefix */
-            ".jpg", /* suffix */
-            storageDir /* directory */
+            "IMG_${timeStamp}_",
+            ".jpg",
+            storageDir
         )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CAMERA && resultCode == RESULT_OK) {
-            ivReceipt.setImageURI(receiptUri) // Set the captured image to ImageView
+            ivReceipt.setImageURI(receiptUri)
         }
     }
 
@@ -189,13 +194,13 @@ class AddExpense : AppCompatActivity() {
             return
         }
 
-        // Convert amount to a double
+        // Convert amount to double
         val amount = amountText.toDoubleOrNull() ?: 0.0
 
         // Get URI of receipt
         val uriString = receiptUri?.toString()
 
-        // Create an Expense object and save it to the database (RoomDB)
+        // Create Expense object for RoomDB
         val expense = Expense(
             amount = amount,
             date = date,
@@ -209,17 +214,17 @@ class AddExpense : AppCompatActivity() {
         val db = CategoryDatabase.getDatabase(this)
         val expenseDao = db.expenseDao()
 
-        // Insert the expense in a background thread
+        // Insert the expense
         Thread {
             expenseDao.insert(expense)
             runOnUiThread {
                 Toast.makeText(this, "Expense Added!", Toast.LENGTH_SHORT).show()
-                finish()  // Close the activity
+                finish()
             }
         }.start()
     }
 
-    // Handle permissions request result
+    // Permissions request result
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 

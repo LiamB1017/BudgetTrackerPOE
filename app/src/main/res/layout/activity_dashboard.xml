@@ -13,7 +13,7 @@
         android:layout_marginTop="4dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:text="Dashboard"
+        android:text="Monthly Goals"
         android:textColor="#003366"
         android:textSize="42sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Spinner for selecting month -->
     <Spinner
         android:id="@+id/monthSpinner"
         android:layout_width="0dp"
@@ -35,10 +34,11 @@
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="56dp"
         android:gravity="center"
         android:text="Minimum Monthly Goal"
         android:textSize="36sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,8 +63,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:gravity="center"
-        android:text="Maximum Goal"
+        android:text="Maximum Monthly Goal"
         android:textSize="36sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +88,7 @@
         android:id="@+id/saveGoalsButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#4CAF50"
+        android:backgroundTint="#2196F3"
         android:text="Update Goals"
         android:textColor="@android:color/white"
         android:textSize="24sp"
@@ -97,7 +98,6 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         android:layout_marginBottom="16dp" />
 
-    <!-- New TextView to display goal information -->
     <TextView
         android:id="@+id/goalsInfoTextView"
         android:layout_width="match_parent"

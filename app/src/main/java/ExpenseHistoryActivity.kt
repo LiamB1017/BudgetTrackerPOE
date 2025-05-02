@@ -1,3 +1,10 @@
+//Group Members:
+//Eliezer Zlotnick	        ST10312794
+//Mmabalane Mothiba	        ST10393134
+//Liam Max Brown	        ST10262451
+//Kgomotso Mbulelo Nxumalo	ST10135860
+//Muhammed Riyaad Kajee	    ST10395948
+
 package com.example.budgettrackerpoe
 
 import android.app.DatePickerDialog
@@ -103,10 +110,10 @@ class ExpenseHistoryActivity : AppCompatActivity() {
     }
 
     private fun fetchExpenseData(startDate: String, endDate: String) {
-        // Launch the background task using Kotlin Coroutines for better thread management
+        // Launch the background task
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                // Fetch expenses using the DAO on a background thread
+                // Fetch expenses using DAO on background thread
                 val expenses = withContext(Dispatchers.IO) {
                     expenseDao.getExpensesByDateRange(startDate, endDate)
                 }
@@ -118,7 +125,7 @@ class ExpenseHistoryActivity : AppCompatActivity() {
                     return@launch
                 }
 
-                // Loop through each expense and build the output
+                // Loop through each expense and build output
                 for (expense in expenses) {
                     stringBuilder.append("---------------\n\n")
                     stringBuilder.append("Category: ${expense.category}\n")

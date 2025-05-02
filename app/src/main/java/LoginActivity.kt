@@ -1,3 +1,10 @@
+//Group Members:
+//Eliezer Zlotnick	        ST10312794
+//Mmabalane Mothiba	        ST10393134
+//Liam Max Brown	        ST10262451
+//Kgomotso Mbulelo Nxumalo	ST10135860
+//Muhammed Riyaad Kajee	    ST10395948
+
 package com.example.budgettrackerpoe
 
 import android.content.Context

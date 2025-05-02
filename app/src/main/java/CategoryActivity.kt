@@ -1,3 +1,10 @@
+//Group Members:
+//Eliezer Zlotnick	        ST10312794
+//Mmabalane Mothiba	        ST10393134
+//Liam Max Brown	        ST10262451
+//Kgomotso Mbulelo Nxumalo	ST10135860
+//Muhammed Riyaad Kajee	    ST10395948
+
 package com.example.budgettrackerpoe
 
 import android.content.Intent
@@ -21,15 +28,12 @@ class CategoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
-        // Initialize Room Database
+        // Initialize Room
         db = CategoryDatabase.getDatabase(this)
         categoryDao = db.categoryDao()
-
-        // Initialize ListView and list
         categoryListView = findViewById(R.id.ctgList)
         categoriesList = mutableListOf()
 
-        // Bottom Navigation View Setup
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -42,7 +46,6 @@ class CategoryActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_category -> {
-                    // This is the current activity, no need to navigate
                     true
                 }
                 R.id.nav_expense_history -> {
@@ -61,7 +64,7 @@ class CategoryActivity : AppCompatActivity() {
         // Fetch categories from database
         loadCategories()
 
-        // Setup Button to add a new category
+        // Button to add a new category
         val btnAddCat = findViewById<Button>(R.id.btnAddCat)
         btnAddCat.setOnClickListener {
             val categoryName = findViewById<EditText>(R.id.ctgName).text.toString()
@@ -71,11 +74,11 @@ class CategoryActivity : AppCompatActivity() {
         }
     }
 
-    // Function to load categories from the database
+    // Load categories from database
     private fun loadCategories() {
         val task = object : AsyncTask<Void, Void, List<Category>>() {
             override fun doInBackground(vararg params: Void?): List<Category> {
-                return categoryDao.getAll() // Perform database operation on background thread
+                return categoryDao.getAll()
             }
 
             override fun onPostExecute(result: List<Category>?) {
@@ -83,7 +86,6 @@ class CategoryActivity : AppCompatActivity() {
                 result?.let {
                     categoriesList.clear()
                     categoriesList.addAll(it)
-                    // Update ListView with fetched categories
                     val adapter = ArrayAdapter(this@CategoryActivity, android.R.layout.simple_list_item_1, categoriesList.map { it.name })
                     categoryListView.adapter = adapter
                 }
@@ -92,17 +94,17 @@ class CategoryActivity : AppCompatActivity() {
         task.execute() // Execute AsyncTask
     }
 
-    // Function to add a new category to the database
+    // Add a new category to the database
     private fun addCategory(category: Category) {
         val task = object : AsyncTask<Category, Void, Void>() {
             override fun doInBackground(vararg params: Category?): Void? {
-                categoryDao.insert(params[0]!!) // Insert category into the database in the background
+                categoryDao.insert(params[0]!!)
                 return null
             }
 
             override fun onPostExecute(result: Void?) {
                 super.onPostExecute(result)
-                loadCategories() // Reload categories after adding a new one
+                loadCategories()
             }
         }
         task.execute(category) // Execute AsyncTask
