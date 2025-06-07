@@ -1,83 +1,129 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/add_expense"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:ignore="ExtraText">
 
-    <TextView
-        android:id="@+id/textView8"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="134dp"
-        android:gravity="center"
-        android:text="Add Expense"
-        android:textSize="46sp" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <EditText
-        android:id="@+id/editTextNumber"
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="362dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Add Expense"
+
+                android:textColor="@color/DeepblueTextColor"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="#2196F3"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/etAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/whiteBackgroundColor"
+                    android:hint="Amount (R)"
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/DeepblueTextColor" />
+
+                <EditText
+                    android:id="@+id/etDate"
+                    android:hint="Date of Expense"
+                    android:focusable="false"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/whiteBackgroundColor"
+                    android:layout_height="48dp" />
+
+                <EditText
+                    android:id="@+id/etStartTime"
+                    android:hint="Start Time"
+                    android:focusable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/whiteBackgroundColor"
+                    android:textColor="@color/DeepblueTextColor" />
+
+                <EditText
+                    android:id="@+id/etEndTime"
+                    android:hint="End Time"
+                    android:focusable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/whiteBackgroundColor"
+                    android:textColor="@color/DeepblueTextColor" />
+
+                <EditText
+                    android:id="@+id/etDescription"
+                    android:hint="Description"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/whiteBackgroundColor"
+                    android:textColor="@color/DeepblueTextColor" />
+
+                <Spinner
+                    android:id="@+id/spinnerCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/whiteBackgroundColor" />
+
+                <ImageView
+                    android:id="@+id/ivReceipt"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:layout_marginTop="8dp"
+                    android:background="#DDDDDD" />
+
+                <Button
+                    android:id="@+id/btnAttach"
+                    android:text="Attach Receipt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#023B68"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnAddExpense"
+                android:text="Upload Expense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#2196F3"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="center_vertical"
-        android:hint="Enter your amount"
-        android:inputType="number"
-        android:minHeight="48dp" />
-
-    <EditText
-        android:id="@+id/editTextDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter The Date"
-        android:minHeight="48dp"
-        android:inputType="date" />
-
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Category"
-        android:minHeight="48dp" />
-
-    <EditText
-        android:id="@+id/editTextText3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter Description"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:text="Description" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="94dp"
-        android:backgroundTint="#4CAF50"
-        android:text="Upload Receipt"
-        android:textColor="@android:color/white"
-        android:textSize="34sp" />
-
-    <!-- optional placeholder -->
-
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="match_parent"
-        android:layout_height="202dp"
-        app:srcCompat="@drawable/img" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="94dp"
-        android:backgroundTint="#4CAF50"
-        android:text="Save"
-        android:textColor="@android:color/white"
-        android:textSize="34sp"
-        tools:ignore="DuplicateIds" />
-
+        android:background="@android:color/white"
+        app:itemIconTint="@android:color/black"
+        app:itemTextColor="@android:color/black"
+        app:menu="@menu/bottom_nav_menu" />
 </LinearLayout>

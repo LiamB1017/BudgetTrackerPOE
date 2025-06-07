@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/imglogo"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/nav_add_expense"
+        android:icon="@drawable/imglogo"
+        android:title="Add Expense" />
+
+    <item
+        android:id="@+id/nav_category"
+        android:icon="@drawable/imglogo"
+        android:title="Category" />
+
+    <item
+        android:id="@+id/nav_expense_history"
+        android:icon="@drawable/imglogo"
+        android:title="Expense History" />
+
+    <item
+        android:id="@+id/nav_reports"
+        android:icon="@drawable/imglogo"
+        android:title="Reports" />
+</menu>

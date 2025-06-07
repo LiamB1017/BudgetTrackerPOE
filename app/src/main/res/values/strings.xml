@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">BudgetTrackerPOE</string>
+<string name="app_name">BudgetTrackerPOE</string>
+<string-array name="expense_categories">
+    <item>Groceries</item>
+    <item>Transport</item>
+    <item>Utilities</item>
+    <item>Entertainment</item>
+    <item>Rent</item>
+</string-array>
 </resources>
