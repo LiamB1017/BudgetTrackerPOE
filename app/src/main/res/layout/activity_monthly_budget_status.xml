@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Monthly Budget Status"
+        android:textColor="#003366"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/editTextMinGoal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Minimum Goal (e.g. R2000)"
+        android:inputType="number"
+        android:textSize="18sp"
+        android:minHeight="48dp"
+        android:layout_marginBottom="12dp"
+        tools:ignore="Autofill,HardcodedText" />
+
+    <EditText
+        android:id="@+id/editTextMaxGoal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:hint="Enter Maximum Goal (e.g. R5000)"
+        android:inputType="number"
+        android:textSize="18sp"
+        android:minHeight="48dp"
+        android:layout_marginBottom="12dp"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/editTextAmountSpent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Amount Spent (e.g. R4300)"
+        android:inputType="number"
+        android:textSize="18sp"
+        android:minHeight="48dp"
+        android:layout_marginBottom="16dp"
+        tools:ignore="Autofill,HardcodedText" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="249dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:backgroundTint="#E0E0E0"
+            android:max="100"
+            android:progress="80"
+            android:progressTint="#448AFF"
+            tools:ignore="InefficientWeight" />
+
+        <ImageView
+            android:id="@+id/imageViewEmoji"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/img_1"
+            android:layout_marginStart="16dp"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Doing well!"
+        android:textColor="#1A237E"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        tools:ignore="HardcodedText" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom|clip_horizontal"
+        android:background="@android:color/white"
+        app:itemIconTint="@android:color/black"
+        app:itemTextColor="@android:color/black"
+        app:menu="@menu/bottom_nav_menu" />
+
+</LinearLayout>
