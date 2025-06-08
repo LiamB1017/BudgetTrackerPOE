@@ -54,16 +54,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="106dp"
+        android:layout_marginBottom="16dp"
         android:gravity="center_vertical"
-        android:layout_marginBottom="16dp">
+        android:orientation="horizontal">
 
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="249dp"
-            android:layout_height="20dp"
+            android:layout_height="79dp"
             android:layout_weight="1"
             android:backgroundTint="#E0E0E0"
             android:max="100"
@@ -73,30 +73,31 @@
 
         <ImageView
             android:id="@+id/imageViewEmoji"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/img_1"
+            android:layout_width="106dp"
+            android:layout_height="119dp"
             android:layout_marginStart="16dp"
+            android:src="@drawable/img_1"
             tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/textViewMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Doing well!"
-        android:textColor="#1A237E"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_width="275dp"
+        android:layout_height="143dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="Doing well!"
+        android:textColor="#1A237E"
+        android:textSize="34sp"
+        android:textStyle="bold"
         tools:ignore="HardcodedText" />
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="135dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
